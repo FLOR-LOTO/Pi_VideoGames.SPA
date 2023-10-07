@@ -4,7 +4,7 @@ const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define("videogame", {
+  sequelize.define("platform", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -12,18 +12,6 @@ module.exports = (sequelize) => {
     },
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    image: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    rating: {
-      type: DataTypes.INTEGER,
       allowNull: false,
     },
   });
