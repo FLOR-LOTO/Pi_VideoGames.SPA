@@ -1,9 +1,9 @@
-const getGamesHandlers = require("../../handlers/games/getGamesHandlers");
+const getGamesHandler = require("../../handlers/games/getGamesHandler");
 
 const getGames = async (req, res) => {
   try {
     const { name } = req.query;
-    const games = await getGamesHandlers(name);
+    const games = await getGamesHandler(name);
     res.status(200).json(games);
   } catch (error) {
     console.error(error); //solo usar en etapa de desarrollo

@@ -1,34 +1,41 @@
 const { Videogame, Genre, Platform } = require("../../db");
+const findVideoGameApi = require("../../functions/findVideoGameApi");
 
-const getGamesById = async (id) => {
+const getGamesByIdHandler = async (id) => {
   const videoGame = await Videogame.findByPk(id, { //busca en la tabla
     include: [
       {
         model: Genre, // Incluye los datos del género.
         attributes: ["name"],
+        through: {
+          attributes: [],
+        },
       },
       {
         model: Platform, // Incluye los datos de la plataforma.
         attributes: ["name"],
+        through: {
+          attributes: [],
+        },
       },
     ],
   });
   if (videoGame) {
     // Si se encuentra en la base de datos devolvemos el json
-    res.json(videoGame);
+    return videoGame;
   } else {
     // Si no se encuentra en la base de datos, intentamos buscarlo en la API
     const videoGameApi = await findVideoGameApi(id);
     if (videoGameApi) {
       // Si se encuentra en la api devolvemos el json
-      res.json(videoGame);
+      return videoGameApi;
     } else {
-      res.status(404).json({ error: "Video game not found" }); // Si no se encuentra en ninguna
+      throw new Error ("Video game not found"); // Si no se encuentra en ninguna
     }
   }
 };
 
-module.exports = getGamesById;
+module.exports = getGamesByIdHandler;
 
 /* GET | /videogames/:idVideogame
 Esta ruta obtiene el detalle de un videojuego específico. Es decir que devuelve un objeto con la información pedida en el detalle de un videojuego.
