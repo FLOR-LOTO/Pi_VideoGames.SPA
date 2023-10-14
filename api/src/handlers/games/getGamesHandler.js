@@ -1,15 +1,13 @@
-const { Videogame } = require("../../db"); //importo el modelo
+const { Videogame, Platform} = require("../../db"); //importo el modelo
 const { Op } = require("sequelize");
 const axios = require("axios");
 require("dotenv").config();
 
 const { API_KEY } = process.env;
 
-//busqueda en la base de datos  ---> me devuelve un array vacio ??
 const getGamesHandlers = async (name) => {
   const dbVideoGames = await Videogame.findAll({
     where: {
-      //filtro la busqueda
       name: {
         [Op.iLike]: `%${name}%`,
       },

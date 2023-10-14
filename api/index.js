@@ -20,11 +20,13 @@
 const server = require("./src/app.js");
 const { conn } = require("./src/db.js");
 const saveGenresDb = require("./src/functions/saveGenresDb.js");
+const savePlatformsDb = require("./src/functions/savePlatformsDb.js")
 
 // Syncing all the models at once.
 conn.sync({ force: true }).then(() => {
   server.listen(3001, async () => {
     console.log("%s listening at 3001"); // eslint-disable-line no-console
     await saveGenresDb();
+    savePlatformsDb();
   });
 });

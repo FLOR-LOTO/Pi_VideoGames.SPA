@@ -1,31 +1,59 @@
-const { Videogame, Genre } = require ("../../db");
-const { Op } = require('sequelize');
+const { Videogame, Genre, User } = require("../../db");
 
-const postGames = async ( name, description, released, image, rating, genres ) => {
-    try {
-        const newVideoGame = await Videogame.create({
-          name,
-          description,
-          released,
-          image,
-          rating,
-          genres
-        })
-        //si hay un genero asignado, busco dentro del array si coinciden
-        if (genres.length > 0) { 
-            const genreInDb = await Genre.findAll({
-              where: {
-                name: {
-                  [Op.in]: [genres], // Op.in busca en un array
-                },
-              },
-            });
-      
-            await newVideoGame.addGenres(genreInDb); //lo asocio al videogame , establezco la relacion
-          }
-      } catch (error) {
-        console.error(error); //solo usar en etapa de desarrollo
-      }
-}
+const postGames = async (game, email) => {
+  if (!email) throw new Error("Se necesita un email");
+
+  const { name, description, released, image, rating, genres } = game;
+  const newVideoGame = await Videogame.create({
+    name,
+    description,
+    released,
+    image,
+    rating,
+  });
+  //si hay un genero asignado, busco dentro del array si coinciden
+  const user = await User.findOne({
+    where: {
+      email,
+    },
+  });
+  await newVideoGame.addUsers([user.dataValues.id]);
+
+  if (genres.length) {
+    const genresToLowerCase = genres.map((genre) => genre.toLowerCase());
+    const genreInDb = await Promise.all(
+      genresToLowerCase.map(
+        async (genre) =>
+          await Genre.findOne({
+            where: {
+              name: genre,
+            },
+          })
+      )
+    );
+    const genresIds = genreInDb.map((genre) => genre.dataValues.id);
+
+    await newVideoGame.addGenres(genresIds); //lo asocio al videogame , establezco la relacion
+  }
+  return await Videogame.findByPk(newVideoGame.dataValues.id, {
+    //busca en la tabla
+    include: [
+      {
+        model: Genre, // Incluye los datos del género.
+        attributes: ["id", "name"],
+        through: {
+          attributes: [],
+        },
+      },
+      {
+        model: User,
+        attributes: ["id", "email", "name", "lastname"],
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+  });
+};
 
 module.exports = postGames;

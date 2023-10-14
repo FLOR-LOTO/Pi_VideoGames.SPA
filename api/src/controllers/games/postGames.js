@@ -1,15 +1,20 @@
 const postGamesHandler = require("../../handlers/games/postGamesHandler");
+const { user } = require("../../middlewares/authenticateUser");
 
 const postGames = async (req, res) => {
   try {
-    const { name, description, released, image, rating, genres } = req.body;
+    const { name, description, released, image, rating, genres, email } =
+      req.body;
     const games = await postGamesHandler(
-      name,
-      description,
-      released,
-      image,
-      rating,
-      genres
+      {
+        name,
+        description,
+        released,
+        image,
+        rating,
+        genres,
+      },
+      email
     );
     res.status(200).json(games);
   } catch (error) {
