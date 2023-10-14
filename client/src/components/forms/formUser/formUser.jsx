@@ -1,11 +1,7 @@
-import './formUser.module.css';
+import "./formUser.module.css";
 
 const FormUser = () => {
-  return (
-    <div className="">
-
-    </div>
-  );
-}
+  return <div className=""></div>;
+};
 
 export default FormUser;

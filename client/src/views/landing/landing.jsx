@@ -1,4 +1,4 @@
-import './landing.module.css';
+import "./landing.module.css";
 
 const Landing = () => {
   return (
@@ -6,6 +6,6 @@ const Landing = () => {
       <h1> landing </h1>
     </div>
   );
-}
+};
 
 export default Landing;

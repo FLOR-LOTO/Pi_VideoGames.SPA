@@ -1,11 +1,7 @@
-import './formGame.module.css';
+import "./formGame.module.css";
 
 const FormGame = () => {
-  return (
-    <div className="">
-
-    </div>
-  );
-}
+  return <div className=""></div>;
+};
 
 export default FormGame;

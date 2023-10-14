@@ -4,7 +4,7 @@ import Home from "./views/home/home";
 import Detail from "./views/detail/detail";
 import Form from "./views/form/form";
 import Landing from "./views/landing/landing";
-import Error404 from "./views/error404/error404"
+import Error404 from "./views/error404/error404";
 
 import "./App.css";
 

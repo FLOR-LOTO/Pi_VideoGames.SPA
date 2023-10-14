@@ -1,12 +1,7 @@
-
-import './cards.module.css';
+import "./cards.module.css";
 
 const Cards = () => {
-  return (
-    <div className="">
-  
-    </div>
-  );
-}
+  return <div className=""></div>;
+};
 
 export default Cards;

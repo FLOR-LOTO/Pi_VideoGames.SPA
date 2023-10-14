@@ -1,4 +1,4 @@
-import './form.module.css';
+import "./form.module.css";
 
 const Form = () => {
   return (
@@ -6,6 +6,6 @@ const Form = () => {
       <h1>Soy el form</h1>
     </div>
   );
-}
+};
 
 export default Form;
