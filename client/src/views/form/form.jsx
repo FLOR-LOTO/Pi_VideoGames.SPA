@@ -1,9 +1,11 @@
+import FormGame from "../../components/forms/formCreateGame/formGame";
+
 import "./form.module.css";
 
 const Form = () => {
   return (
     <div className="">
-      <h1>Soy el form</h1>
+      <FormGame />
     </div>
   );
 };

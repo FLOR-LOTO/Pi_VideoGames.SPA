@@ -1,9 +1,11 @@
+import FormLogin from "../../components/forms/formUser/formLogin";
+
 import "./landing.module.css";
 
 const Landing = () => {
   return (
     <div className="">
-      <h1> landing </h1>
+      < FormLogin/>
     </div>
   );
 };

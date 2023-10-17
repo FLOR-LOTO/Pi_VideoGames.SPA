@@ -1,0 +1,33 @@
+.formContainer {
+  display: grid;
+  place-items: center; /* Centra tanto horizontal como verticalmente */
+  min-height: 85vh; /* Opcional para centrar verticalmente en toda la altura de la ventana */
+  text-align: center;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    1fr
+  ); /* Dividir el formulario en 2 columnas */
+  grid-gap: 20px; /* Espacio entre elementos */
+}
+
+.label {
+  text-align: center; /* Alineación izquierda para los títulos */
+  display: block; /* Hace que los títulos ocupen toda la anchura del contenedor */
+}
+
+.submitContainer {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  margin-top: 30px; /* Espacio entre los campos y el botón */
+}
+
+.submitContainer button {
+  font-size: 1.5rem; /* Ajusta el tamaño del texto del botón según tus preferencias */
+  padding: 12px 24px; /* Ajusta el relleno (padding) del botón para cambiar su tamaño */
+  /* Otros estilos de tamaño (ancho, alto, etc.) que desees aplicar */
+}

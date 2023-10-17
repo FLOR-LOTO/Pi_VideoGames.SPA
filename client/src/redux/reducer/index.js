@@ -3,12 +3,13 @@ import {
   CREATE_GAMES,
   FILTER_GENRES,
   ORDER_GAMES,
+  RESET_GAMES
 } from "../actions/actions.types";
 
 let initialState = {
   allGames: [],
   createGame: [],
-  filterGeres: [],
+  filterGenres: [],
   orderGames: [],
 };
 
@@ -37,6 +38,9 @@ function rootReducer(state = initialState, action) {
         ...state,
         orderGames: action.payload,
       };
+    case RESET_GAMES:
+      return initialState; // Esto restaura el estado al valor inicial
+
     default:
       return state;
   }
