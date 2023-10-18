@@ -1,8 +1,8 @@
-import "./formRegister.module.css";
+import style from "./formUser.module.css";
 
-const FormRegister = () => {
+const FormUser = () => {
   return (
-    <div>
+    <div className="">
       <h2>Registro de Usuario</h2>
       <form>
         <div>
@@ -29,4 +29,4 @@ const FormRegister = () => {
   );
 };
 
-export default FormRegister;
+export default FormUser;

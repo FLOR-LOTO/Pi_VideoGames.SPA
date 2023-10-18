@@ -2,7 +2,8 @@ const { Videogame, Genre, Platform } = require("../../db");
 const findVideoGameApi = require("../../functions/findVideoGameApi");
 
 const getGamesByIdHandler = async (id) => {
-  const videoGame = await Videogame.findByPk(id, { //busca en la tabla
+  const videoGame = await Videogame.findByPk(id, {
+    //busca en la tabla
     include: [
       {
         model: Genre, // Incluye los datos del género.
@@ -30,7 +31,7 @@ const getGamesByIdHandler = async (id) => {
       // Si se encuentra en la api devolvemos el json
       return videoGameApi;
     } else {
-      throw new Error ("Video game not found"); // Si no se encuentra en ninguna
+      throw new Error("Video game not found"); // Si no se encuentra en ninguna
     }
   }
 };

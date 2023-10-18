@@ -10,13 +10,12 @@ import {
 
 export function getGames() {
   return async function (dispatch) {
-    const response = await axios(
+    const {data} = await axios(
       "http://localhost:3001/game"
     );
-    console.log(response.data);
     return dispatch({
       type: GET_GAMES,
-      payload: response.data, // el payload es la informacion
+      payload: data, // el payload es la informacion
 
     });
   };

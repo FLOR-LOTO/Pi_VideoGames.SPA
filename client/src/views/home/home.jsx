@@ -2,7 +2,7 @@ import { useEffect } from "react"; //ayuda a controlar el ciclo de vida de una p
 import { useDispatch, useSelector } from "react-redux"; // son hooks de react que nos permiten conectar con redux
 import { Link } from "react-router-dom";
 
-import { getGames } from "../../redux/actions/index";
+import { getGames } from "../../redux/actions";
 
 import SearchBar from "../../components/searchBar/searchBar";
 import Cards from "../../components/cards/cards";
@@ -21,12 +21,10 @@ const Home = () => {
   return (
     <div className="">
       <SearchBar />
-      <Cards allRenderGames={games} />
+      <Cards games={games} />
 
-      <Link to={"/"}>
         <button>Salir</button>
-      </Link>
-
+  
       <Link to={"/form"}>
         <button>Crear un Videojuego</button>
       </Link>

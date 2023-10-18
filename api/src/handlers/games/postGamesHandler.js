@@ -1,9 +1,9 @@
-const { Videogame, Genre, User } = require("../../db");
+const { Videogame, Genre, User, Platform } = require("../../db");
 
-const postGames = async (game, email) => {
+const postGamesHandler = async (game, email) => {
   if (!email) throw new Error("Se necesita un email");
 
-  const { name, description, released, image, rating, genres } = game;
+  const { name, description, released, platform, image, rating, genres } = game;
   const newVideoGame = await Videogame.create({
     name,
     description,
@@ -34,6 +34,7 @@ const postGames = async (game, email) => {
     const genresIds = genreInDb.map((genre) => genre.dataValues.id);
 
     await newVideoGame.addGenres(genresIds); //lo asocio al videogame , establezco la relacion
+    
   }
   return await Videogame.findByPk(newVideoGame.dataValues.id, {
     //busca en la tabla
@@ -52,8 +53,15 @@ const postGames = async (game, email) => {
           attributes: [],
         },
       },
+      {
+        model: Platform, // Incluye los datos de la plataforma.
+        attributes: ["id", "name"],
+        through: {
+          attributes: [],
+        },
+      },
     ],
   });
 };
 
-module.exports = postGames;
+module.exports = postGamesHandler;

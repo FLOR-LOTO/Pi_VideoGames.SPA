@@ -1,11 +1,11 @@
-const { Videogame, Platform} = require("../../db"); //importo el modelo
+const { Videogame, Platform } = require("../../db"); //importo el modelo
 const { Op } = require("sequelize");
 const axios = require("axios");
 require("dotenv").config();
 
 const { API_KEY } = process.env;
 
-const getGamesHandlers = async (name) => {
+const getGamesHandlers = async (name, page=1) => {
   const dbVideoGames = await Videogame.findAll({
     where: {
       name: {
@@ -13,20 +13,27 @@ const getGamesHandlers = async (name) => {
       },
     },
   });
-  const { data } = await axios.get(`https://api.rawg.io/api/games?key=${API_KEY}&search=${name}`)
+  const { data } = await axios.get(
+    `https://api.rawg.io/api/games?key=${API_KEY}${
+      name ? `&search=${name}` : ""
+    }`
+  );
   const { results } = data;
 
-  const apiVideoGames = results.map((game)=>{
+  const apiVideoGames = results.map((game) => {
+    const name = game.slug.replace(/-/g, " ");
+
     return {
-      name: game.name,
+      id: game.id,
+      name: `${name.charAt(0).toUpperCase()}${name.slice(1)}`,
       description: "",
       image: game.background_image,
       released: game.released,
-      rating: game.rating_top, 
-    }
-  })
-  const allVideoGames = [...dbVideoGames, ...apiVideoGames]
-  return allVideoGames.slice(0,15);
+      rating: game.rating_top,
+    };
+  });
+  const allVideoGames = [...dbVideoGames, ...apiVideoGames];
+  return allVideoGames.slice(page * 15 - 15, page * 15);
 };
 
 module.exports = getGamesHandlers;
